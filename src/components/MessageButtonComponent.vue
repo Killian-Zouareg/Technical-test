@@ -1,10 +1,10 @@
 <template>
     <v-row>
         <v-col>
-            <v-btn>Generate message</v-btn>
+            <v-btn @click="getRandomMessage()" class="mr-4">Generate message</v-btn>
             <v-dialog v-model="dialog" width="auto">
                 <template v-slot:activator="{ props }">
-                    <v-btn @click="GetAllMessages()" v-bind="props">Get all messages</v-btn>
+                    <v-btn v-bind="props">Get all messages</v-btn>
                 </template>
 
                 <v-table fixed-header height="400px">
@@ -22,7 +22,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="message in messages" :key="message.code">
+                        <tr v-for="message in messagesStore.messages" :key="message.code">
                             <td>{{ message.code }}</td>
                             <td>{{ message.tag }}</td>
                             <td>{{ message.message }}</td>
@@ -37,24 +37,31 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import MessageService from '../services/Messages'
-import Message from '../core/message'
+import { useMessageStore } from '../store/messages'
+import { onBeforeMount } from 'vue';
 
 let dialog = ref(false)
 
-let messages = ref<Message[]>([])
-
 const messageService = new MessageService()
+const messagesStore = useMessageStore()
+const emits = defineEmits(["generate-message"])
 
-function GetAllMessages() {
+onBeforeMount(() => {
     messageService.GetMessages().then((response) => {
         for (let i = 0; i < response.data.excuses.length; i++) {
             const message = response.data.excuses[i]
-            messages.value.push({code: message.http_code,message:message.message,tag: message.tag})
+            messagesStore.messages.push({code: message.http_code,message:message.message,tag: message.tag})
         }
-
     }).catch((error) => {
         console.error(error)
     })
+})
+
+function getRandomMessage(): void {
+    let randomMessage = messagesStore.getRandomMessage
+    emits('generate-message', randomMessage)
 }
+
+
 
 </script>
