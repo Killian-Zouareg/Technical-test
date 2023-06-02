@@ -42,6 +42,8 @@ import { onBeforeMount } from 'vue';
 
 let dialog = ref(false)
 
+let random = ref(0)
+
 const messageService = new MessageService()
 const messagesStore = useMessageStore()
 const emits = defineEmits(["generate-message"])
@@ -58,8 +60,12 @@ onBeforeMount(() => {
 })
 
 function getRandomMessage(): void {
-    let randomMessage = messagesStore.getRandomMessage
-    emits('generate-message', randomMessage)
+    let randomIndex = Math.floor(Math.random() * messagesStore.messages.length);
+    if (random.value !== randomIndex) {
+        emits('generate-message',messagesStore.messages[randomIndex].message)      
+    } else {
+        getRandomMessage()
+    }
 }
 
 
