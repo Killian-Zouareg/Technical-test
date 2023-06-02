@@ -21,9 +21,9 @@ onBeforeMount(() => {
     if (route.params !== undefined) {
         messageService.GetMessages().then((response) => {
             for (let i = 0; i < response.data.excuses.length; i++) {
-            if (response.data.excuses[i].http_code.toString() === route.params.code.toString()) {
-                message.value = response.data.excuses[i].message
-            }
+                if (response.data.excuses[i].http_code.toString() === route.params.code.toString()) {
+                    message.value = response.data.excuses[i].message
+                }
         }
         })
     }
