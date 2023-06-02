@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col>
-      <v-card title="Ma super application !" width="600px">
+      <v-card title="Ma super application !" width="600px" color="blue" class="py-3">
         <v-card-text>
           {{ message }}
         </v-card-text>

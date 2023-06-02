@@ -1,7 +1,7 @@
 <template>
     <v-row>
         <v-col>
-            <v-btn @click="getRandomMessage()">Generate message</v-btn>
+            <v-btn @click="getRandomMessage()" class="mr-4">Generate message</v-btn>
             <v-dialog v-model="dialog" width="auto">
                 <template v-slot:activator="{ props }">
                     <v-btn v-bind="props">Get all messages</v-btn>

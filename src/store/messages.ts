@@ -12,7 +12,6 @@ export const useMessageStore = defineStore({
                 return "error fetching the message";
             }
             let randomIndex = Math.floor(Math.random() * state.messages.length);
-            console.log(randomIndex)
             return state.messages[randomIndex].message;
         }
     }
