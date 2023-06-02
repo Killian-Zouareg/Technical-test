@@ -59,6 +59,7 @@
 import { ref } from 'vue'
 import MessageService from '../services/Messages'
 import { useMessageStore } from '../store/messages'
+import { useLoadingStore } from '../store/loading'
 import { onBeforeMount } from 'vue';
 
 let dialogAllMessages = ref(false)
@@ -73,6 +74,7 @@ let code = ref("")
 // Init Store and Service
 const messageService = new MessageService()
 const messagesStore = useMessageStore()
+const loading = useLoadingStore()
 
 // Defining Emits
 const emits = defineEmits(["generate-message"])
@@ -85,12 +87,16 @@ onBeforeMount(() => {
  * Get a random message from the store
  */
 function getRandomMessage(): void {
-    let randomIndex = Math.floor(Math.random() * messagesStore.messages.length);
-    if (random.value !== randomIndex) {
-        emits('generate-message',messagesStore.messages[randomIndex].message)      
-    } else {
-        getRandomMessage()
-    }
+    loading.triggerLoading({isLoading: true, loadingText: "Getting a message"})
+    setTimeout(() => {
+        let randomIndex = Math.floor(Math.random() * messagesStore.messages.length);
+        if (random.value !== randomIndex) {
+            emits('generate-message',messagesStore.messages[randomIndex].message)      
+        } else {
+            getRandomMessage()
+        }
+        loading.triggerLoading({isLoading: false, loadingText: ""})   
+    }, 3000);
 }
 
 /**
