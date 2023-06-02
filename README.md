@@ -8,15 +8,5 @@ npm install
 ```
 npm run dev
 ```
-### Compiles and minifies for production
-```
-npm run build
-```
-### Run your unit tests
-```
-npm run test
-```
-### Lints and fixes files
-```
-npm run lint
-```
+
+Make sure to also launch the backend
