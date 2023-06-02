@@ -17,10 +17,11 @@ import MessageButton from './MessageButtonComponent.vue';
 
 let message = ref("")
 
+/**
+ * Display a random message
+ * @param errorMessage message that will be displayed 
+ */
 function displayMessage(errorMessage: string): void {
   message.value = errorMessage
 }
 </script>
-
-<style scoped>
-</style>
