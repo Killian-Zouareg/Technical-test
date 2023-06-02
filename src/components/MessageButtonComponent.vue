@@ -110,16 +110,19 @@ function submitNewMessage(code: string, tag: string, message: string): void {
 /**
  * Load all the messages from the store
  */
-function loadMessages(): void {
+ function loadMessages(): void {
     messageService.GetMessages().then((response) => {
+        const newMessages = []
         for (let i = 0; i < response.data.excuses.length; i++) {
             const message = response.data.excuses[i]
-            messagesStore.messages.push({code: message.http_code,message:message.message,tag: message.tag})
+            newMessages.push({code: message.http_code,message:message.message,tag: message.tag})
         }
+        messagesStore.messages = newMessages
     }).catch((error) => {
         console.error(error)
     })
 }
+
 
 
 
