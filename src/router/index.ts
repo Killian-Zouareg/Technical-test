@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MainPage from '../views/MainPage.vue'
 import LostPage from '../views/LostPage.vue'
+import CodePage from '../views/CodePage.vue'
+import NotFound from '../views/NotFound.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -14,6 +16,16 @@ const router = createRouter({
             path: '/lost',
             name: "lost",
             component: LostPage,
+        },
+        {
+            path: '/code/:code',
+            name: 'code',
+            component: CodePage,
+        },
+        {
+            path: '/:pathMatch(.*)*',
+            name: 'not found',
+            component: NotFound,
         }
     ]
 })
